@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="game-info">
+        <div class="game-name">Hangman</div>
+        <div class="wrong-counter">
+          الأخطاء: <span id="wrong-count">0</span> / 9
+        </div>
+        <div class="category">القسم: <span id="category-name"></span></div>
+      </div>
+      <!-- مكان عرض السؤال أو التلميح الخاص بالكلمة -->
+      <div
+        class="word-hint-box"
+        style="
+          margin: 15px 0;
+          font-size: 18px;
+          color: #555;
+          background: #fdfdfd;
+          padding: 10px;
+          border-radius: 5px;
+          border-right: 4px solid #009688;
+        "
+      >
+        خمن 💡:
+        <span id="hint-text" style="font-weight: bold; color: #333"></span>
+      </div>
+      <hr />
+      <div class="row">
+        <!-- رسمة المشنقة -->
+        <div class="hangman-draw">
+          <div class="the-draw">
+            <div class="the-stand"></div>
+            <div class="the-hang"></div>
+            <div class="the-rope"></div>
+            <div class="the-man">
+              <div class="head"></div>
+              <div class="body"></div>
+              <div class="hands"></div>
+              <div class="legs"></div>
+            </div>
+          </div>
+        </div>
+        <!-- لوحة الحروف -->
+        <div class="letters"></div>
+      </div>
+      <hr />
+      <div class="game-actions" style="text-align: center; margin-bottom: 15px">
+        <button
+          id="hint-btn"
+          style="
+            padding: 10px 20px;
+            background-color: #ff9800;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+          "
+        >
+          تلميح مساعد (اكشف حرف)
+        </button>
+      </div>
+      <!-- مربعات تخمين الكلمة -->
+      <div class="letters-guess"></div>
+    </div>
+
+    <!-- مؤثرات صوتية (اختيارية) -->
+    <audio id="success" src="audio/success.mp3"></audio>
+    <audio id="fail" src="audio/fail.mp3"></audio>
+    <script src="main.js"></script>
+  </body>
+</html>

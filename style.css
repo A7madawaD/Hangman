@@ -1,0 +1,339 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Tahoma, sans-serif;
+  background-color: #f3f3f3;
+  direction: rtl;
+}
+
+.container {
+  width: 1000px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.game-info .category span {
+  text-transform: capitalize;
+  color: #009688;
+}
+
+.wrong-counter {
+  background-color: #ff5722;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+hr {
+  border: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* رسمة المشنقة المضبوطة تماماً للاتجاه الحالي */
+.hangman-draw {
+  flex: 1;
+  background-color: #f8f8f8;
+  padding: 20px;
+  height: 320px;
+  border-radius: 10px;
+  border: 2px solid #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hangman-draw .the-draw {
+  width: 260px;
+  height: 280px;
+  position: relative;
+}
+
+/* القاعدة الأرضية */
+.hangman-draw .the-draw::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 4px;
+  background-color: #222;
+  bottom: 0;
+  left: 110px;
+  display: none;
+}
+
+/* العمود الرأسي (على اليمين حسب صورتك) */
+.hangman-draw .the-stand {
+  position: absolute;
+  width: 4px;
+  background-color: #222;
+  height: 100%;
+  left: 180px;
+  top: 0;
+  display: none;
+}
+
+/* العارضة الأفقية */
+.hangman-draw .the-hang {
+  position: absolute;
+  height: 4px;
+  background-color: #222;
+  width: 110px;
+  left: 74px;
+  top: 0;
+  display: none;
+}
+
+/* الحبل (تحت العارضة من جهة اليسار) */
+.hangman-draw .the-rope {
+  position: absolute;
+  width: 4px;
+  height: 40px;
+  background-color: #222;
+  left: 74px;
+  top: 4px;
+  display: none;
+}
+
+/* الرأس */
+.hangman-draw .the-man .head {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px dashed #222;
+  left: 51px;
+  top: 44px;
+  display: none;
+}
+
+/* الجسم */
+.hangman-draw .the-man .body {
+  position: absolute;
+  background-color: #222;
+  width: 4px;
+  height: 90px;
+  left: 74px;
+  top: 94px;
+  display: none;
+}
+
+/* اليدين */
+.hangman-draw .the-man .hands {
+  display: none;
+}
+.hangman-draw .the-man .hands::before,
+.hangman-draw .the-man .hands::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 50px;
+  background-color: #222;
+  top: 105px;
+}
+.hangman-draw .the-man .hands::before {
+  left: 54px;
+  transform: rotate(-45deg);
+}
+.hangman-draw .the-man .hands::after {
+  left: 94px;
+  transform: rotate(45deg);
+}
+
+/* الرجلين */
+.hangman-draw .the-man .legs {
+  display: none;
+}
+.hangman-draw .the-man .legs::before,
+.hangman-draw .the-man .legs::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 55px;
+  background-color: #222;
+  top: 178px;
+}
+.hangman-draw .the-man .legs::before {
+  left: 54px;
+  transform: rotate(35deg);
+}
+.hangman-draw .the-man .legs::after {
+  left: 94px;
+  transform: rotate(-35deg);
+}
+
+/* ربط ظهور أجزاء المشنقة بالتسلسل مع الأخطاء */
+.hangman-draw.wrong-1 .the-draw::before {
+  display: block;
+}
+.hangman-draw.wrong-2 .the-stand {
+  display: block;
+}
+.hangman-draw.wrong-3 .the-hang {
+  display: block;
+}
+.hangman-draw.wrong-4 .the-rope {
+  display: block;
+}
+.hangman-draw.wrong-5 .the-man .head {
+  display: block;
+}
+.hangman-draw.wrong-6 .the-man .body {
+  display: block;
+}
+.hangman-draw.wrong-7 .the-man .hands {
+  display: block;
+}
+.hangman-draw.wrong-8 .the-man .legs {
+  display: block;
+}
+/* لوحة الحروف */
+.letters {
+  flex: 1;
+  margin-right: 20px;
+  background-color: #f8f8f8;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  border: 2px solid #eee;
+}
+
+.letters.finished {
+  pointer-events: none;
+}
+
+.letters .letter-box {
+  width: 45px;
+  height: 45px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #009688;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.letters .letter-box.clicked {
+  background-color: #222;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+#hint-btn:hover {
+  background-color: #e68a00;
+}
+
+/* حاوية تخمين الكلمة */
+.letters-guess {
+  margin: 10px auto;
+  background-color: #f8f8f8;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 104px;
+  direction: rtl;
+  border-radius: 10px;
+  border: 2px solid #eee;
+}
+
+.letters-guess span {
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+  margin-left: 10px;
+  margin-right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background-color: #fdfdfd;
+  border-bottom: 3px solid #222;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+
+.letters-guess span:last-child {
+  margin-left: 0;
+}
+
+.letters-guess span.with-space {
+  background: none;
+  border-bottom: none;
+  position: relative;
+  width: 30px;
+  margin-left: 10px;
+}
+
+.letters-guess span.with-space:before {
+  content: "";
+  width: 15px;
+  height: 4px;
+  background-color: #222;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* نافذة النهاية (Popup) وزر إعادة اللعب */
+.popup {
+  position: fixed;
+  background-color: #009688;
+  padding: 40px 20px;
+  width: 60%;
+  top: 20%;
+  left: 20%;
+  text-align: center;
+  font-size: 28px;
+  border: 1px solid #ccc;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.popup button {
+  display: block;
+  width: 200px;
+  margin: 20px auto 0;
+  padding: 12px;
+  background-color: #fff;
+  color: #009688;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup button:hover {
+  background-color: #333;
+  color: #fff;
+}
